@@ -19,6 +19,20 @@ namespace :db do
     print "#{User.count} users created\n"
   end
 
+  desc 'Add some dummy medicine'
+  task add_medicine: :environment do
+    35.times do
+      medicine = Medicine.new(
+        name: Faker::Lorem.words(3),
+        description: Faker::Lorem.paragraph,
+        capacity: Faker::Number.between(100, 1000)
+      )
+      medicine.save
+    end
+
+    print "There are #{Medicine.count} medicines in the database\n"
+  end
+
   desc 'Remove all data'
   task drop_data: :environment do
     users = User.destroy_all

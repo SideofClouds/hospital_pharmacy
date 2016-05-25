@@ -11,7 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160427140815) do
+ActiveRecord::Schema.define(version: 20160524120508) do
+
+  create_table "medicines", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description", default: ""
+    t.integer  "capacity",    default: 0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "medicine_id",                null: false
+    t.integer  "user_id",                    null: false
+    t.integer  "quantity",       default: 1
+    t.integer  "approved_by_id"
+    t.integer  "status",         default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "orders", ["medicine_id"], name: "index_orders_on_medicine_id"
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
